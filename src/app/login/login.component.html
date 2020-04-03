@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body style="height: 100%;">
+<!-- <notifier-container></notifier-container> -->
+<div class="animated slideInLeft">
+  <div class="container register-form pt-4">
+    <div class="form mt-5">
+      <div class="note col-lg-6 offset-3 text-center">
+        <h2>Login here</h2>
+      </div>
+
+      <div class="col-lg-6 offset-3">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="userData" id="loginForm" (ngSubmit)="login()">
+
+              <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input class="form-control"
+                       id="inputUsername" formControlName="username"
+                       name="username"
+                       placeholder="Enter your username"
+                       required>
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input class="form-control"
+                       id="inputPassword" formControlName="password"
+                       type="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       required>
+              </div>
+
+              <div class="text-right">
+                <button type="submit" [disabled]="userData.invalid" id="loginbtn"
+                        class="btn btn-success">Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
