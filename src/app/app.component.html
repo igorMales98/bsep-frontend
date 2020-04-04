@@ -24,13 +24,33 @@
     <div id="navbarNavDropdown" class="navbar-collapse collapse navbar-responsive-collapse ">
 
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" *ngIf="checkLoggedIn()">
+          <a class="nav-link" routerLink="/issueCertificate">
+            <fa-icon [icon]="faCertificate" class="mr-1"></fa-icon>
+            Issue certificates</a>
+        </li>
+
+        <li class="nav-item active" *ngIf="checkLoggedIn()">
+          <a class="nav-link" routerLink="/allCertificates">
+            <fa-icon [icon]="faList" class="mr-1"></fa-icon>
+            All Issued Certificates</a>
+        </li>
       </ul>
 
       <ul class="navbar-nav mr-0">
-        <li class="nav-item active">
+
+
+
+        <li class="nav-item active" *ngIf="!checkLoggedIn()">
           <a class="nav-link" routerLink="/login">
             <fa-icon [icon]="faLogin" class="mr-1"></fa-icon>
             Login</a>
+        </li>
+
+        <li class="nav-item active" *ngIf="checkLoggedIn()" (click)="logout()">
+          <a class="nav-link" routerLink="/">
+            <fa-icon [icon]="faLogout" class="mr-1"></fa-icon>
+            Logout</a>
         </li>
       </ul>
 

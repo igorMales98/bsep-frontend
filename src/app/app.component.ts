@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {faSignInAlt} from '@fortawesome/free-solid-svg-icons';
+import {faSignInAlt, faSignOutAlt, faList, faCertificate} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
+import {UserService} from './security/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,21 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'bsepkt1-front';
   faLogin = faSignInAlt;
+  faLogout = faSignOutAlt;
+  faList = faList;
+  faCertificate = faCertificate;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
+  }
+
+  checkLoggedIn() {
+    return this.userService.isLoggedIn();
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }

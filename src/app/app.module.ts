@@ -11,6 +11,8 @@ import {UserService} from './security/user.service';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SidebarModule} from 'ng-sidebar';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AdminHomePageComponent } from './admin-home-page/admin-home-page.compon
     FontAwesomeModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    SidebarModule
   ],
   providers: [
     UserService

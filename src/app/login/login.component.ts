@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(loginRequest).subscribe(
       () => {
         alert('success');
+        console.log(localStorage.getItem('user'));
         this.router.navigate(['/adminHomePage']);
       },
       (err) => {
