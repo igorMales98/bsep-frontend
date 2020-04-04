@@ -13,12 +13,16 @@ import {HttpClientModule} from '@angular/common/http';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SidebarModule} from 'ng-sidebar';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { IssueCertificatesComponent } from './admin-home-page/issue-certificates/issue-certificates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminHomePageComponent
+    AdminHomePageComponent,
+    IssueCertificatesComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import {SidebarModule} from 'ng-sidebar';
     RouterModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SidebarModule
+    SidebarModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule
   ],
   providers: [
     UserService

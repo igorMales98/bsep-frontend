@@ -1,0 +1,193 @@
+<div id="toggle-group-cert" class="border-bottom">
+  <mat-slide-toggle #toggleSelf (change)="toggleSelfIssuing()">Self issued</mat-slide-toggle>
+  <mat-slide-toggle #toggleCA (change)="toggleCaIssuing()">CA</mat-slide-toggle>
+  <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
+</div>
+
+<div id="selectDigitalEntity">
+  <mat-button-toggle-group>
+    <mat-button-toggle #toggleUser (change)="toggleUserE()">User</mat-button-toggle>
+    <mat-button-toggle #toggleSoftwareCompany (change)="toggleSoftwareCompanyE()">Software Company</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<div class="row" id="forms" [hidden]="formsHidden || (!selectedSelf && !selectedCa && !selectedEnd)">
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center"> Issuer data </h2>
+        <form [formGroup]="issuerData">
+          <div class="col">
+            <div class="form-group col-lg-10">
+              <label for="inputFirstName">First Name</label>
+              <input class="form-control"
+                     id="inputFirstName"
+                     name="firstName" formControlName="firstName"
+                     placeholder="Enter first name of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputLastName">Last Name</label>
+              <input class="form-control"
+                     id="inputLastName"
+                     name="lastName" formControlName="lastName"
+                     placeholder="Enter last name of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputOrganization">Organization</label>
+              <input class="form-control"
+                     id="inputOrganization"
+                     name="organization" formControlName="organization"
+                     placeholder="Enter organization of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputOrganizationUnit">Organization Unit</label>
+              <input class="form-control"
+                     id="inputOrganizationUnit"
+                     name="organizationUnit" formControlName="organizationUnit"
+                     placeholder="Enter organization unit of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputCountry">Country</label>
+              <input class="form-control"
+                     id="inputCountry"
+                     name="country" formControlName="country"
+                     placeholder="Enter country of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputCity">City</label>
+              <input class="form-control"
+                     id="inputCity"
+                     name="city" formControlName="city"
+                     placeholder="Enter city of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputEmail">Email</label>
+              <input class="form-control"
+                     id="inputEmail"
+                     name="email" formControlName="email"
+                     placeholder="Enter email of issuer"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputPhone">Phone</label>
+              <input class="form-control"
+                     id="inputPhone"
+                     name="phone" formControlName="phone"
+                     placeholder="Enter phone of issuer"
+                     required>
+            </div>
+
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5" [hidden]="this.subjectDataDisplayed">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title text-center"> Issuer and subject data are the same. </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5" id="subjectDataDiv" [hidden]="!this.subjectDataDisplayed">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center"> Subject data </h2>
+        <form [formGroup]="subjectData">
+          <div class="col">
+            <div class="form-group col-lg-10">
+              <label for="inputFirstNameS">First Name</label>
+              <input class="form-control"
+                     id="inputFirstNameS"
+                     name="firstName" formControlName="firstName"
+                     placeholder="Enter first name of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputLastNameS">Last Name</label>
+              <input class="form-control"
+                     id="inputLastNameS"
+                     name="lastName" formControlName="lastName"
+                     placeholder="Enter last name of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputOrganizationS">Organization</label>
+              <input class="form-control"
+                     id="inputOrganizationS"
+                     name="organization" formControlName="organization"
+                     placeholder="Enter organization of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputOrganizationUnitS">Organization Unit</label>
+              <input class="form-control"
+                     id="inputOrganizationUnitS"
+                     name="organizationUnit" formControlName="organizationUnit"
+                     placeholder="Enter organization unit of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputCountryS">Country</label>
+              <input class="form-control"
+                     id="inputCountryS"
+                     name="country" formControlName="country"
+                     placeholder="Enter country of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputCityS">City</label>
+              <input class="form-control"
+                     id="inputCityS"
+                     name="city" formControlName="city"
+                     placeholder="Enter city of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputEmailS">Email</label>
+              <input class="form-control"
+                     id="inputEmailS"
+                     name="email" formControlName="email"
+                     placeholder="Enter email of subject"
+                     required>
+            </div>
+
+            <div class="form-group col-lg-10">
+              <label for="inputPhoneS">Phone</label>
+              <input class="form-control"
+                     id="inputPhoneS"
+                     name="phone" formControlName="phone"
+                     placeholder="Enter phone of subject"
+                     required>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

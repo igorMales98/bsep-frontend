@@ -1,0 +1,25 @@
+#toggle-group-cert {
+  margin-left: 30%;
+  margin-top: 20px;
+  margin-right: 35%;
+}
+
+mat-slide-toggle {
+  padding-left: 50px;
+  font-size: 18px;
+}
+
+#forms {
+  padding-top: 20px;
+  margin-left: 10%;
+}
+
+#selectDigitalEntity {
+  margin-left: 40%;
+  padding-top: 20px;
+  margin-right: 30%;
+}
+
+mat-button-toggle {
+  border-color: darkgrey;
+}
