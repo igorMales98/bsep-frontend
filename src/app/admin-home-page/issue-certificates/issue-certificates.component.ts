@@ -4,6 +4,8 @@ import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/fo
 import {MatRadioButton} from '@angular/material/radio';
 import {MatButtonToggle} from '@angular/material/button-toggle';
 import {Router} from '@angular/router';
+import {IssuerAndSubjectData} from '../../model/issuerAndSubjectData';
+import {IssueCertificatesService} from './issue-certificates.service';
 
 @Component({
   selector: 'app-issue-certificates',
@@ -31,7 +33,10 @@ export class IssueCertificatesComponent implements OnInit {
   selectedUser = false;
   selectedSoftwareCompany = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private issueCertificatesService: IssueCertificatesService) {
+  }
+
+  ngOnInit(): void {
     this.issuerData = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
@@ -53,9 +58,6 @@ export class IssueCertificatesComponent implements OnInit {
       email: ['', [Validators.required, this.emailDomainValidator]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.minLength(9), Validators.maxLength(10)]]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   emailDomainValidator(control: FormControl) {
@@ -116,5 +118,14 @@ export class IssueCertificatesComponent implements OnInit {
     this.formsHidden = false;
     this.selectedUser = false;
     this.selectedSoftwareCompany = true;
+  }
+
+  issueCertificate() {
+    const issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
+      this.subjectData.value.firstName, this.subjectData.value.lastName);
+
+    this.issueCertificatesService.issueCertificate(issuerAndSubjectData).subscribe(() => {
+      this.router.navigate(['/adminHomePage']);
+    });
   }
 }

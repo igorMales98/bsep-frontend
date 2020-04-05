@@ -9,13 +9,14 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from './security/user.service';
 import {RouterModule} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SidebarModule} from 'ng-sidebar';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { IssueCertificatesComponent } from './admin-home-page/issue-certificates/issue-certificates.component';
+import {TokenInterceptor} from './security/tokenInterceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { IssueCertificatesComponent } from './admin-home-page/issue-certificates
     MatSlideToggleModule
   ],
   providers: [
-    UserService
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

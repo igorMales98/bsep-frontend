@@ -23,3 +23,8 @@ mat-slide-toggle {
 mat-button-toggle {
   border-color: darkgrey;
 }
+
+#btnIssue {
+  margin-left: 42%;
+  padding-top: 20px;
+}
