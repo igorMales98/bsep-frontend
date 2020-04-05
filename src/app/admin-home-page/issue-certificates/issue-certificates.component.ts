@@ -40,8 +40,8 @@ export class IssueCertificatesComponent implements OnInit {
     this.issuerData = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      organization: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      organizationUnit: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+      organization: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
+      organizationUnit: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
       country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       city: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       email: ['', [Validators.required, this.emailDomainValidator]],
@@ -122,10 +122,22 @@ export class IssueCertificatesComponent implements OnInit {
 
   issueCertificate() {
     const issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
-      this.subjectData.value.firstName, this.subjectData.value.lastName);
+      this.issuerData.value.organization, this.issuerData.value.organizationUnit, this.issuerData.value.country, this.issuerData.value.city,
+      this.issuerData.value.email, this.issuerData.value.phone, this.subjectData.value.firstName, this.subjectData.value.lastName,
+      this.subjectData.value.organization, this.subjectData.value.organizationUnit, this.subjectData.value.country,
+      this.subjectData.value.city, this.subjectData.value.email, this.subjectData.value.phone);
 
     this.issueCertificatesService.issueCertificate(issuerAndSubjectData).subscribe(() => {
       this.router.navigate(['/adminHomePage']);
     });
   }
+
+  get fi() {
+    return this.issuerData.controls;
+  }
+
+  get fs() {
+    return this.subjectData.controls;
+  }
+
 }

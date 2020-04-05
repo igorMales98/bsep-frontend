@@ -24,7 +24,9 @@
                      id="inputFirstName"
                      name="firstName" formControlName="firstName"
                      placeholder="Enter first name of issuer"
+                     [ngClass]="{'is-invalid': fi.firstName.touched && fi.firstName.errors, 'is-valid': fi.firstName.touched && fi.firstName.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.firstName.invalid && fi.firstName.touched">First name must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -33,7 +35,9 @@
                      id="inputLastName"
                      name="lastName" formControlName="lastName"
                      placeholder="Enter last name of issuer"
+                     [ngClass]="{'is-invalid': fi.lastName.touched && fi.lastName.errors, 'is-valid': fi.lastName.touched && fi.lastName.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.lastName.invalid && fi.lastName.touched">Last name must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -42,7 +46,9 @@
                      id="inputOrganization"
                      name="organization" formControlName="organization"
                      placeholder="Enter organization of issuer"
+                     [ngClass]="{'is-invalid': fi.organization.touched && fi.organization.errors, 'is-valid': fi.organization.touched && fi.organization.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.organization.invalid && fi.organization.touched">Organization must contain only letters and/or numbers</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -51,7 +57,9 @@
                      id="inputOrganizationUnit"
                      name="organizationUnit" formControlName="organizationUnit"
                      placeholder="Enter organization unit of issuer"
+                     [ngClass]="{'is-invalid': fi.organizationUnit.touched && fi.organizationUnit.errors, 'is-valid': fi.organizationUnit.touched && fi.organizationUnit.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.organizationUnit.invalid && fi.organizationUnit.touched">Organization unit must contain only letters and/or numbers</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -60,7 +68,9 @@
                      id="inputCountry"
                      name="country" formControlName="country"
                      placeholder="Enter country of issuer"
+                     [ngClass]="{'is-invalid': fi.country.touched && fi.country.errors, 'is-valid': fi.country.touched && fi.country.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.country.invalid && fi.country.touched">Country must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -69,7 +79,9 @@
                      id="inputCity"
                      name="city" formControlName="city"
                      placeholder="Enter city of issuer"
+                     [ngClass]="{'is-invalid': fi.city.touched && fi.city.errors, 'is-valid': fi.city.touched && fi.city.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.city.invalid && fi.city.touched">City must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -78,7 +90,9 @@
                      id="inputEmail"
                      name="email" formControlName="email"
                      placeholder="Enter email of issuer"
+                     [ngClass]="{'is-invalid': fi.email.touched && fi.email.errors, 'is-valid': fi.email.touched && fi.email.valid}"
                      required>
+              <span style="color: red" *ngIf="fi.city.invalid && fi.city.touched">Email must be in proper format</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -87,7 +101,10 @@
                      id="inputPhone"
                      name="phone" formControlName="phone"
                      placeholder="Enter phone of issuer"
+                     [ngClass]="{'is-invalid': fi.phone.touched && fi.phone.errors, 'is-valid': fi.phone.touched && fi.phone.valid}"
                      required>
+              <span style="color: red"
+                    *ngIf="fi.phone.invalid && fi.phone.touched">Phone must contain 9 or 10 numbers</span>
             </div>
 
 
@@ -118,7 +135,9 @@
                      id="inputFirstNameS"
                      name="firstName" formControlName="firstName"
                      placeholder="Enter first name of subject"
+                     [ngClass]="{'is-invalid': fs.firstName.touched && fs.firstName.errors, 'is-valid': fs.firstName.touched && fs.firstName.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.firstName.invalid && fs.firstName.touched">First name must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -127,7 +146,9 @@
                      id="inputLastNameS"
                      name="lastName" formControlName="lastName"
                      placeholder="Enter last name of subject"
+                     [ngClass]="{'is-invalid': fs.lastName.touched && fs.lastName.errors, 'is-valid': fs.lastName.touched && fs.lastName.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.lastName.invalid && fs.lastName.touched">Last name must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -136,7 +157,9 @@
                      id="inputOrganizationS"
                      name="organization" formControlName="organization"
                      placeholder="Enter organization of subject"
+                     [ngClass]="{'is-invalid': fs.organization.touched && fs.organization.errors, 'is-valid': fs.organization.touched && fs.organization.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.organization.invalid && fs.organization.touched">Organization must contain only letters and/or numbers</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -145,7 +168,9 @@
                      id="inputOrganizationUnitS"
                      name="organizationUnit" formControlName="organizationUnit"
                      placeholder="Enter organization unit of subject"
+                     [ngClass]="{'is-invalid': fs.organizationUnit.touched && fs.organizationUnit.errors, 'is-valid': fs.organizationUnit.touched && fs.organizationUnit.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.organizationUnit.invalid && fs.organizationUnit.touched">Organization unit must contain only letters and/or numbers</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -154,7 +179,9 @@
                      id="inputCountryS"
                      name="country" formControlName="country"
                      placeholder="Enter country of subject"
+                     [ngClass]="{'is-invalid': fs.country.touched && fs.country.errors, 'is-valid': fs.country.touched && fs.country.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.country.invalid && fs.country.touched">Country must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -163,7 +190,9 @@
                      id="inputCityS"
                      name="city" formControlName="city"
                      placeholder="Enter city of subject"
+                     [ngClass]="{'is-invalid': fs.city.touched && fs.city.errors, 'is-valid': fs.city.touched && fs.city.valid}"
                      required>
+              <span style="color: red" *ngIf="fs.city.invalid && fs.city.touched">City must contain only letters</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -172,7 +201,10 @@
                      id="inputEmailS"
                      name="email" formControlName="email"
                      placeholder="Enter email of subject"
+                     [ngClass]="{'is-invalid': fs.email.touched && fs.email.errors, 'is-valid': fs.email.touched && fs.email.valid}"
                      required>
+              <span style="color: red"
+                    *ngIf="fs.email.invalid && fs.email.touched">Email must be in proper format</span>
             </div>
 
             <div class="form-group col-lg-10">
@@ -181,7 +213,10 @@
                      id="inputPhoneS"
                      name="phone" formControlName="phone"
                      placeholder="Enter phone of subject"
+                     [ngClass]="{'is-invalid': fs.phone.touched && fs.phone.errors, 'is-valid': fs.phone.touched && fs.phone.valid}"
                      required>
+              <span style="color: red"
+                    *ngIf="fs.phone.invalid && fs.phone.touched">Phone must contain 9 or 10 numbers<</span>
             </div>
 
           </div>
@@ -193,5 +228,5 @@
 </div>
 
 <div id="btnIssue" (click)="issueCertificate()">
-  <button class="btn btn-success"> Issue certificate</button>
+  <button class="btn btn-success" [disabled]="subjectData.invalid || issuerData.invalid"> Issue certificate</button>
 </div>
