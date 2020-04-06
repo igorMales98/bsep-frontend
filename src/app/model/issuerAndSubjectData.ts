@@ -17,10 +17,13 @@ export class IssuerAndSubjectData {
   emailSubject: string;
   phoneSubject: string;
 
+  typeOfEntity: string;
+  certificateRole: string;
+
   constructor(firstName: string, lastName: string, organization: string, organizationUnit: string, country: string, city: string,
               email: string, phone: string, firstNameSubject: string, lastNameSubject: string, organizationSubject: string,
-              organizationUnitSubject: string,
-              countrySubject: string, citySubject: string, emailSubject: string, phoneSubject: string) {
+              organizationUnitSubject: string, countrySubject: string, citySubject: string, emailSubject: string, phoneSubject: string,
+              typeOfEntity: string, certificateRole: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.organization = organization;
@@ -38,6 +41,9 @@ export class IssuerAndSubjectData {
     this.citySubject = citySubject;
     this.emailSubject = emailSubject;
     this.phoneSubject = phoneSubject;
+
+    this.typeOfEntity = typeOfEntity;
+    this.certificateRole = certificateRole;
   }
 
 }

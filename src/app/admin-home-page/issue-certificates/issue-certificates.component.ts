@@ -51,8 +51,8 @@ export class IssueCertificatesComponent implements OnInit {
     this.subjectData = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      organization: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      organizationUnit: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+      organization: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
+      organizationUnit: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
       country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       city: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       email: ['', [Validators.required, this.emailDomainValidator]],
@@ -121,11 +121,40 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   issueCertificate() {
-    const issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
-      this.issuerData.value.organization, this.issuerData.value.organizationUnit, this.issuerData.value.country, this.issuerData.value.city,
-      this.issuerData.value.email, this.issuerData.value.phone, this.subjectData.value.firstName, this.subjectData.value.lastName,
-      this.subjectData.value.organization, this.subjectData.value.organizationUnit, this.subjectData.value.country,
-      this.subjectData.value.city, this.subjectData.value.email, this.subjectData.value.phone);
+    let typeOfEntity = '';
+    if (this.toggleUSER.checked === true) {
+      typeOfEntity = 'USER';
+    } else if (this.toggleSOFTWARECOMPANY.checked === true) {
+      typeOfEntity = 'SOFTWARE_COMPANY';
+    }
+
+    let certificateRole = '';
+    if (this.toggleSELF.checked === true) {
+      certificateRole = 'SELF_SIGNED';
+    } else if (this.toggleCA.checked === true) {
+      certificateRole = 'INTERMEDIATE';
+    } else if (this.toggleEND.checked === true) {
+      certificateRole = 'END_ENTITY';
+    }
+
+    let issuerAndSubjectData;
+
+    if (this.toggleUSER.checked === true) {
+      issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
+        this.issuerData.value.organization, this.issuerData.value.organizationUnit, this.issuerData.value.country,
+        this.issuerData.value.city, this.issuerData.value.email, this.issuerData.value.phone, this.subjectData.value.firstName,
+        this.subjectData.value.lastName, this.subjectData.value.organization, this.subjectData.value.organizationUnit,
+        this.subjectData.value.country, this.subjectData.value.city, this.subjectData.value.email, this.subjectData.value.phone,
+        typeOfEntity, certificateRole);
+    } else {
+      issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
+        this.issuerData.value.organization, this.issuerData.value.organizationUnit, this.issuerData.value.country,
+        this.issuerData.value.city, this.issuerData.value.email, this.issuerData.value.phone, this.issuerData.value.firstName,
+        this.issuerData.value.lastName, this.issuerData.value.organization, this.issuerData.value.organizationUnit,
+        this.issuerData.value.country, this.issuerData.value.city, this.issuerData.value.email, this.issuerData.value.phone,
+        typeOfEntity, certificateRole);
+    }
+
 
     this.issueCertificatesService.issueCertificate(issuerAndSubjectData).subscribe(() => {
       this.router.navigate(['/adminHomePage']);

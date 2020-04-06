@@ -12,7 +12,6 @@ export class IssueCertificatesService {
   }
 
   issueCertificate(issuerAndSubjectData: IssuerAndSubjectData) {
-    console.log(localStorage.getItem('user'));
     return this.httpClient.post('http://localhost:8080/api/certificates/issueCertificate', issuerAndSubjectData);
   }
 
