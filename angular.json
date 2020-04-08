@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "bsepkt1-front"
+  "defaultProject": "bsepkt1-front",
+  "cli": {
+    "analytics": "163d2f7b-b76c-438b-9ff7-6693e270bcda"
+  }
 }

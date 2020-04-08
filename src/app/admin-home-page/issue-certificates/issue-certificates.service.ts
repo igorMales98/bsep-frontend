@@ -12,7 +12,7 @@ export class IssueCertificatesService {
   }
 
   issueCertificate(issuerAndSubjectData: IssuerAndSubjectData) {
-    return this.httpClient.post('http://localhost:8080/api/certificates/issueCertificate', issuerAndSubjectData);
+    return this.httpClient.post('http://localhost:8081/api/certificates/issueCertificate', issuerAndSubjectData);
   }
 
 }
