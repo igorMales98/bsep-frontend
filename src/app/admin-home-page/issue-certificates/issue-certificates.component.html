@@ -230,3 +230,8 @@
 <div id="btnIssue" (click)="issueCertificate()">
   <button class="btn btn-success" [disabled]="subjectData.invalid || issuerData.invalid"> Issue certificate</button>
 </div>
+
+<input id="keyStorePassword" type="password"/> {{keyStorePassword}}
+  <button (click)="issueCertificate()">
+    Set KeyStore Password
+  </button>

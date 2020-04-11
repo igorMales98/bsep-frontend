@@ -6,6 +6,7 @@ import {MatButtonToggle} from '@angular/material/button-toggle';
 import {Router} from '@angular/router';
 import {IssuerAndSubjectData} from '../../model/issuerAndSubjectData';
 import {IssueCertificatesService} from './issue-certificates.service';
+import { KeyStoreData } from 'src/app/model/keyStoreData';
 
 @Component({
   selector: 'app-issue-certificates',
@@ -28,6 +29,8 @@ export class IssueCertificatesComponent implements OnInit {
   subjectDataDisplayed = true;
   subjectData: FormGroup;
   issuerData: FormGroup;
+  keyStorePassword: string;
+  keyStoreData: KeyStoreData;
 
   formsHidden = true;
   selectedUser = false;
@@ -137,6 +140,18 @@ export class IssueCertificatesComponent implements OnInit {
       certificateRole = 'END_ENTITY';
     }
 
+    this.issueCertificatesService.load(certificateRole).subscribe(data => {
+      if (!data) {
+        //pojavi se modal za kucanje nove lozinke
+        this.keyStoreData.name = certificateRole.toLowerCase();
+        this.keyStoreData.password = this.keyStorePassword;
+        console.log("Dosao ovde");
+        return;
+        this.issueCertificatesService.setKeyStorePassword(this.keyStoreData).subscribe();
+      }
+      //pojavi se modal za kucanje lozinke za pristup keystore
+    });
+
     let issuerAndSubjectData;
 
     if (this.toggleUSER.checked === true) {
@@ -156,8 +171,9 @@ export class IssueCertificatesComponent implements OnInit {
     }
 
 
-    this.issueCertificatesService.issueCertificate(issuerAndSubjectData).subscribe(() => {
+    this.issueCertificatesService.issueCertificate(issuerAndSubjectData,this.keyStorePassword).subscribe(() => {
       this.router.navigate(['/adminHomePage']);
+      //treba hendlovati unetu pogresnu lozinku (401)
     });
   }
 
