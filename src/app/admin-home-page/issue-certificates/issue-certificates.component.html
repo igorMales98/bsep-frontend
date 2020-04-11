@@ -227,11 +227,39 @@
   </div>
 </div>
 
-<div id="btnIssue" (click)="issueCertificate()">
+<div id="btnIssue" (click)="openModal(myModalNoPassword, myModalYesPassword)">
   <button class="btn btn-success" [disabled]="subjectData.invalid || issuerData.invalid"> Issue certificate</button>
 </div>
 
-<input id="keyStorePassword" type="password"/> {{keyStorePassword}}
-  <button (click)="issueCertificate()">
-    Set KeyStore Password
-  </button>
+<div class="mt-lg-5 text-center">
+  <ng-template #myModalNoPassword let-modal>
+    <div class="modal-body">
+      <form (ngSubmit)="issueCertificate()" [formGroup]="passwordData">
+        <p> Key store doesn't exist. It will be created with the password you enter. </p>
+        <label for="noPasswordInput">Password</label>
+        <input id="noPasswordInput" type="password"/>
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Issue</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
+</div>
+
+<div class="mt-lg-5 text-center">
+  <ng-template #myModalYesPassword let-modal>
+    <div class="modal-body">
+      <form (ngSubmit)="issueCertificate()" [formGroup]="passwordData">
+        <p> Enter key store password to save certificate </p>
+        <label for="yesPasswordInput">Password</label>
+        <input id="yesPasswordInput" type="password" formControlName="password"/>
+        <span style="color:red;" hidden id="checkPasswordErrorSpan">Please enter correct password</span>
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Issue</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
+</div>
