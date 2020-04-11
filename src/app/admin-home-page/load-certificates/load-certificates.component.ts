@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {AllIssuedCertificatesService} from './all-issued-certificates.service';
+import {LoadCertificatesService} from './load-certificates.service';
 import {Router} from '@angular/router';
 import {KeyStoreData} from '../../model/keyStoreData';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
-  selector: 'app-all-issued-certificates',
-  templateUrl: './all-issued-certificates.component.html',
-  styleUrls: ['./all-issued-certificates.component.css']
+  selector: 'app-load-certificates',
+  templateUrl: './load-certificates.component.html',
+  styleUrls: ['./load-certificates.component.css']
 })
-export class AllIssuedCertificatesComponent implements OnInit {
+export class LoadCertificatesComponent implements OnInit {
 
   @ViewChild('toggleSelf') toggleSELF: MatSlideToggle;
   @ViewChild('toggleCA') toggleCA: MatSlideToggle;
@@ -22,7 +22,7 @@ export class AllIssuedCertificatesComponent implements OnInit {
   selectedCa = false;
   selectedEnd = false;
 
-constructor(private router: Router, private allIssuedCertificatesService: AllIssuedCertificatesService) { }
+constructor(private router: Router, private loadCertificatesService: LoadCertificatesService) { }
 
   ngOnInit(): void {
   }
@@ -66,9 +66,24 @@ constructor(private router: Router, private allIssuedCertificatesService: AllIss
     }
     this.keyStoreData.password = this.password;
     alert(".............................................................................................");
-    this.allIssuedCertificatesService.setPassword(this.keyStoreData).subscribe(() => {
-        this.router.navigate(['/allIssuedCertificates']);
+    this.loadCertificatesService.setPassword(this.keyStoreData).subscribe(() => {
+        this.router.navigate(['/loadCertificates']);
       });
   }
 
+  loadCertificate(){
+  let role = "";
+    if (this.selectedSelf) {
+          role = "SELF_SIGNED";
+        }
+        else if (this.selectedCa) {
+          role = "INTERMEDIATE";
+        }
+        else if (this.selectedEnd) {
+          role = "END_ENTITY";
+        }
+  const alias1 = "5009698503277725575";
+  const password1 = "12345";
+  this.loadCertificatesService.loadCertificate(role,alias1,password1).subscribe();
+  }
 }
