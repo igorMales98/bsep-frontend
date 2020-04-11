@@ -12,11 +12,11 @@ export class IssueCertificatesService {
   constructor(private router: Router, private httpClient: HttpClient) {
   }
   load(certificateRole: string) {
-    return this.httpClient.get('http://localhost:8081/api/keyStoreData/load/'+'intermediate');
+    return this.httpClient.get('http://localhost:8081/api/keyStoreData/load/'+certificateRole);
   }
   setKeyStorePassword(keyStoreData: KeyStoreData) {
     return this.httpClient.post('http://localhost:8081/api/keyStoreData/setPassword',keyStoreData);
-  } 
+  }
   issueCertificate(issuerAndSubjectData: IssuerAndSubjectData, keyStorePassword: string) {
     return this.httpClient.post('http://localhost:8081/api/certificates/issueCertificate/'+keyStorePassword, issuerAndSubjectData);
   }

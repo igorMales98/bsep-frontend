@@ -4,8 +4,9 @@
     <mat-slide-toggle #toggleCA (change)="toggleCaIssuing()">CA</mat-slide-toggle>
     <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
   </div>
-  <input id="keyStorePassword" type="password"/> {{password}}
-  <button (click)="setPassword()">
-    Set KeyStore Password
+  <input id="serialNumber" type="text"/>
+  <input id="keyStorePassword" type="password"/>
+  <button (click)="loadCertificate()">
+    Load Certificate
   </button>
 </div>
