@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {KeyStoreData} from '../../model/keyStoreData';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CertificateSubject} from '../../model/certificateSubject';
 
 @Component({
   selector: 'app-load-certificates',
@@ -16,30 +17,31 @@ export class LoadCertificatesComponent implements OnInit {
   @ViewChild('toggleCA') toggleCA: MatSlideToggle;
   @ViewChild('toggleEnd') toggleEND: MatSlideToggle;
 
-  keyStoreData: KeyStoreData;
   password: string;
 
   selectedSelf = false;
   selectedCa = false;
   selectedEnd = false;
 
-  tableShow = true; //sertifikat
-  formHidden1 = true; //alias i password
+  tableShow = true;
+  formHidden1 = true;
 
   formLoad: FormGroup;
 
-  constructor(private router: Router, private loadCertificatesService: LoadCertificatesService) {
+  certificateInfo: CertificateSubject;
+  firstNameSubject: string;
+  lastNameSubject: string;
+  emailSubject: string;
+
+  constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder) {
   }
-
-
-constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder) { }
 
 
   ngOnInit(): void {
     this.formLoad = this.formBuilder.group({
-          alias: ['', [Validators.required,Validators.pattern(/^[0-9]*$/)]],
-          keyStorePassword: ['', [Validators.required,]]
-        });
+      alias: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      keyStorePassword: ['', [Validators.required]]
+    });
   }
 
   toggleSelfIssuing() {
@@ -72,20 +74,6 @@ constructor(private router: Router, private loadCertificatesService: LoadCertifi
     this.formHidden1 = false;
   }
 
-  setPassword() {
-    if (this.selectedSelf) {
-      this.keyStoreData.name = 'SELF_SIGNED';
-    } else if (this.selectedCa) {
-      this.keyStoreData.name = 'INTERMEDIATE';
-    } else if (this.selectedEnd) {
-      this.keyStoreData.name = 'END_ENTITY';
-    }
-    this.keyStoreData.password = this.password;
-    alert('.............................................................................................');
-    this.loadCertificatesService.setPassword(this.keyStoreData).subscribe(() => {
-      this.router.navigate(['/loadCertificates']);
-    });
-  }
 
   loadCertificate() {
     let role = '';
@@ -98,18 +86,24 @@ constructor(private router: Router, private loadCertificatesService: LoadCertifi
     }
     const alias1 = this.formLoad.value.alias;
 
-    const password1 = this.formLoad.value.password; //prikazuje kao undefined
+    const password1 = this.formLoad.value.keyStorePassword;
 
     this.tableShow = false;
-    this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe();
+    this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe(data => {
+      this.certificateInfo = data;
+      const split = this.certificateInfo.name.split(',');
+      this.firstNameSubject = split[7].split('=')[1];
+      this.lastNameSubject = split[6].split('=')[1];
+      this.emailSubject = split[2].split('=')[1];
+    });
   }
 
   get li() {
-      return this.formLoad.controls;
-    }
+    return this.formLoad.controls;
+  }
 
   get ls() {
-      return this.formLoad.controls;
-    }
+    return this.formLoad.controls;
+  }
 
 }

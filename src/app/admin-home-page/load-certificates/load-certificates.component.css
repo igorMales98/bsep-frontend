@@ -9,13 +9,13 @@ mat-slide-toggle {
   font-size: 18px;
 }
 
-#form1 {
+#form1, #form2 {
   padding-top: 10px;
   margin-left: 36%;
   margin-right: 30%;
 }
 
-#form2 {
+#form3 {
   padding-top: 20px;
   padding-bottom: 30px;
   margin-left: 36%;

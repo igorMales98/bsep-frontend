@@ -40,16 +40,29 @@ export class IssueCertificatesComponent implements OnInit {
 
   closeResult: string;
 
+  selfIssuedExists = false;
+  Arr = Array; // Array type captured in a variable
+  num = 5;
+
+  allSSandCA: IssuerAndSubjectData[] = [];
+  showDropdown = false;
+
   constructor(private router: Router, private formBuilder: FormBuilder, private issueCertificatesService: IssueCertificatesService,
               private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
 
+    this.issueCertificatesService.getAllSSAndCa().subscribe(data => {
+      this.allSSandCA = data;
+    });
+
     this.issueCertificatesService.doesKeyStoreExist('SELF_SIGNED').subscribe(data => {
       if (!data) {
         this.toggleCA.disabled = true;
         this.toggleEND.disabled = true;
+      } else {
+        this.selfIssuedExists = true;
       }
     });
 
@@ -95,6 +108,8 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   toggleSelfIssuing() {
+    this.showDropdown = false;
+    this.issuerData.enable();
     this.subjectDataDisplayed = false;
     this.toggleSELF.checked = this.toggleSELF.checked !== true;
     this.toggleCA.checked = false;
@@ -105,6 +120,10 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   toggleCaIssuing() {
+    this.showDropdown = true;
+    if (this.selfIssuedExists) {
+      this.issuerData.disable();
+    }
     this.subjectDataDisplayed = true;
     this.toggleCA.checked = this.toggleSELF.checked !== true;
     this.toggleSELF.checked = false;
@@ -115,6 +134,10 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   toggleEndIssuing() {
+    this.showDropdown = true;
+    if (this.selfIssuedExists) {
+      this.issuerData.disable();
+    }
     this.subjectDataDisplayed = true;
     this.toggleEND.checked = this.toggleSELF.checked !== true;
     this.toggleSELF.checked = false;
@@ -147,7 +170,7 @@ export class IssueCertificatesComponent implements OnInit {
 
     let issuerAndSubjectData;
 
-    if (this.toggleUSER.checked === true) {
+    if (!this.toggleSELF.checked === true) {
       issuerAndSubjectData = new IssuerAndSubjectData(this.issuerData.value.firstName, this.issuerData.value.lastName,
         this.issuerData.value.organization, this.issuerData.value.organizationUnit, this.issuerData.value.country,
         this.issuerData.value.city, this.issuerData.value.email, this.issuerData.value.phone, this.subjectData.value.firstName,
@@ -168,6 +191,8 @@ export class IssueCertificatesComponent implements OnInit {
       this.router.navigate(['/adminHomePage']);
       // treba hendlovati unetu pogresnu lozinku (401)
     });
+
+    this.modalService.dismissAll();
   }
 
   get fi() {
@@ -237,15 +262,23 @@ export class IssueCertificatesComponent implements OnInit {
     }
   }
 
+  fillData(issuer: IssuerAndSubjectData) {
+    (document.getElementById('inputFirstName') as HTMLInputElement).value = issuer.firstName;
+    (document.getElementById('inputLastName') as HTMLInputElement).value = issuer.lastName;
+    (document.getElementById('inputOrganization') as HTMLInputElement).value = issuer.organization;
+    (document.getElementById('inputOrganizationUnit') as HTMLInputElement).value = issuer.organizationUnit;
+    (document.getElementById('inputCountry') as HTMLInputElement).value = issuer.country;
+    (document.getElementById('inputCity') as HTMLInputElement).value = issuer.city;
+    (document.getElementById('inputEmail') as HTMLInputElement).value = issuer.email;
+    (document.getElementById('inputPhone') as HTMLInputElement).value = issuer.phone;
+    this.issuerData.value.firstName = issuer.firstName;
+    this.issuerData.value.lastName = issuer.lastName;
+    this.issuerData.value.organization = issuer.organization;
+    this.issuerData.value.organizationUnit = issuer.organizationUnit;
+    this.issuerData.value.country = issuer.country;
+    this.issuerData.value.city = issuer.city;
+    this.issuerData.value.email = issuer.email;
+    this.issuerData.value.phone = issuer.phone;
 
-  checkPassword() {
-    const keyStoreData1 = new KeyStoreData(this.getRole().toLowerCase(), this.passwordData.value.password);
-    this.issueCertificatesService.checkKeyStorePassword(keyStoreData1).subscribe(data => {
-      if (data) {
-        this.issueCertificate();
-      } else {
-        document.getElementById('checkPasswordErrorSpan').hidden = false;
-      }
-    });
   }
 }

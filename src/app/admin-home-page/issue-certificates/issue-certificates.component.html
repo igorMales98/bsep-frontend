@@ -11,6 +11,16 @@
   </mat-button-toggle-group>
 </div>
 
+<div class="col" id="caDropdown" [hidden]="!showDropdown">
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem *ngFor="let issuer of allSSandCA"
+              (click)="fillData(issuer)">{{issuer.firstName + ' ' + issuer.lastName + ' : ' + issuer.email}}</button>
+    </div>
+  </div>
+</div>
+
 <div class="row" id="forms" [hidden]="formsHidden || (!selectedSelf && !selectedCa && !selectedEnd)">
   <div class="col-lg-5">
     <div class="card">
@@ -228,7 +238,7 @@
 </div>
 
 <div id="btnIssue" (click)="openModal(myModalNoPassword, myModalYesPassword)">
-  <button class="btn btn-success" [disabled]="subjectData.invalid || issuerData.invalid"> Issue certificate</button>
+  <button class="btn btn-success"> Issue certificate</button>
 </div>
 
 <div class="mt-lg-5 text-center">
