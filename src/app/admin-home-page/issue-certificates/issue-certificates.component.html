@@ -1,4 +1,4 @@
-<div id="toggle-group-cert" class="border-bottom">
+<div id="toggle-group-cert" class="border-bottom animated slideInDown">
   <mat-slide-toggle #toggleSelf (change)="toggleSelfIssuing()">Self issued</mat-slide-toggle>
   <mat-slide-toggle #toggleCA (change)="toggleCaIssuing()">CA</mat-slide-toggle>
   <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
@@ -9,6 +9,16 @@
     <mat-button-toggle #toggleUser (change)="toggleUserE()">User</mat-button-toggle>
     <mat-button-toggle #toggleSoftwareCompany (change)="toggleSoftwareCompanyE()">Software Company</mat-button-toggle>
   </mat-button-toggle-group>
+</div>
+
+<div class="col" id="caDropdown" [hidden]="!showDropdown">
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem *ngFor="let issuer of allSSandCA"
+              (click)="fillData(issuer)">{{issuer.firstName + ' ' + issuer.lastName + ' : ' + issuer.email}}</button>
+    </div>
+  </div>
 </div>
 
 <div class="row" id="forms" [hidden]="formsHidden || (!selectedSelf && !selectedCa && !selectedEnd)">
@@ -227,6 +237,39 @@
   </div>
 </div>
 
-<div id="btnIssue" (click)="issueCertificate()">
-  <button class="btn btn-success" [disabled]="subjectData.invalid || issuerData.invalid"> Issue certificate</button>
+<div id="btnIssue" (click)="openModal(myModalNoPassword, myModalYesPassword)">
+  <button class="btn btn-success"> Issue certificate</button>
+</div>
+
+<div class="mt-lg-5 text-center">
+  <ng-template #myModalNoPassword let-modal>
+    <div class="modal-body">
+      <form (ngSubmit)="issueCertificate()" [formGroup]="passwordData">
+        <p> Key store doesn't exist. It will be created with the password you enter. </p>
+        <label for="noPasswordInput">Password</label>
+        <input id="noPasswordInput" type="password" formControlName="password"/>
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Issue</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
+</div>
+
+<div class="mt-lg-5 text-center">
+  <ng-template #myModalYesPassword let-modal>
+    <div class="modal-body">
+      <form (ngSubmit)="issueCertificate()" [formGroup]="passwordData">
+        <p> Enter key store password to save certificate </p>
+        <label for="yesPasswordInput">Password</label>
+        <input id="yesPasswordInput" type="password" formControlName="password"/>
+        <span style="color:red;" hidden id="checkPasswordErrorSpan">Please enter correct password</span>
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Issue</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
 </div>

@@ -22,7 +22,7 @@ export class UserService {
   }
 
   login(loginRequest: LoginRequest) {
-    return this.httpClient.post('http://localhost:8080/api/auth/login', loginRequest).pipe(map((response: UserTokenState) => {
+    return this.httpClient.post('http://localhost:8081/api/auth/login', loginRequest).pipe(map((response: UserTokenState) => {
       this.accessToken = response.accessToken;
       localStorage.setItem('user', JSON.stringify(response));
       this.loggedInUserSubject.next(response);

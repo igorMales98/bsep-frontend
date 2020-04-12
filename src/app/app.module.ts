@@ -17,13 +17,15 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { IssueCertificatesComponent } from './admin-home-page/issue-certificates/issue-certificates.component';
 import {TokenInterceptor} from './security/tokenInterceptor';
+import { LoadCertificatesComponent } from './admin-home-page/load-certificates/load-certificates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminHomePageComponent,
-    IssueCertificatesComponent
+    IssueCertificatesComponent,
+    LoadCertificatesComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import {TokenInterceptor} from './security/tokenInterceptor';
     BrowserAnimationsModule,
     SidebarModule,
     MatButtonToggleModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   providers: [
     UserService,
