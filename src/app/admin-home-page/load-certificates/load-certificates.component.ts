@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoadCertificatesService} from './load-certificates.service';
 import {Router} from '@angular/router';
 import {KeyStoreData} from '../../model/keyStoreData';
@@ -15,14 +15,15 @@ export class LoadCertificatesComponent implements OnInit {
   @ViewChild('toggleCA') toggleCA: MatSlideToggle;
   @ViewChild('toggleEnd') toggleEND: MatSlideToggle;
 
-  keyStoreData: KeyStoreData
-  password: string
+  keyStoreData: KeyStoreData;
+  password: string;
 
   selectedSelf = false;
   selectedCa = false;
   selectedEnd = false;
 
-constructor(private router: Router, private loadCertificatesService: LoadCertificatesService) { }
+  constructor(private router: Router, private loadCertificatesService: LoadCertificatesService) {
+  }
 
   ngOnInit(): void {
   }
@@ -56,34 +57,30 @@ constructor(private router: Router, private loadCertificatesService: LoadCertifi
 
   setPassword() {
     if (this.selectedSelf) {
-      this.keyStoreData.name = "SELF_SIGNED";
-    }
-    else if (this.selectedCa) {
-      this.keyStoreData.name = "INTERMEDIATE";
-    }
-    else if (this.selectedEnd) {
-      this.keyStoreData.name = "END_ENTITY";
+      this.keyStoreData.name = 'SELF_SIGNED';
+    } else if (this.selectedCa) {
+      this.keyStoreData.name = 'INTERMEDIATE';
+    } else if (this.selectedEnd) {
+      this.keyStoreData.name = 'END_ENTITY';
     }
     this.keyStoreData.password = this.password;
-    alert(".............................................................................................");
+    alert('.............................................................................................');
     this.loadCertificatesService.setPassword(this.keyStoreData).subscribe(() => {
-        this.router.navigate(['/loadCertificates']);
-      });
+      this.router.navigate(['/loadCertificates']);
+    });
   }
 
-  loadCertificate(){
-  let role = "";
+  loadCertificate() {
+    let role = '';
     if (this.selectedSelf) {
-          role = "SELF_SIGNED";
-        }
-        else if (this.selectedCa) {
-          role = "INTERMEDIATE";
-        }
-        else if (this.selectedEnd) {
-          role = "END_ENTITY";
-        }
-  const alias1 = "5009698503277725575";
-  const password1 = "12345";
-  this.loadCertificatesService.loadCertificate(role,alias1,password1).subscribe();
+      role = 'SELF_SIGNED';
+    } else if (this.selectedCa) {
+      role = 'INTERMEDIATE';
+    } else if (this.selectedEnd) {
+      role = 'END_ENTITY';
+    }
+    const alias1 = '8748226639966699729';
+    const password1 = '12345';
+    this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe();
   }
 }

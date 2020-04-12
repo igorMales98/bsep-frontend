@@ -237,7 +237,7 @@
       <form (ngSubmit)="issueCertificate()" [formGroup]="passwordData">
         <p> Key store doesn't exist. It will be created with the password you enter. </p>
         <label for="noPasswordInput">Password</label>
-        <input id="noPasswordInput" type="password"/>
+        <input id="noPasswordInput" type="password" formControlName="password"/>
         <div class="text-right">
           <button type="submit" class="btn btn-success">Issue</button>
         </div>

@@ -156,7 +156,7 @@ export class IssueCertificatesComponent implements OnInit {
     }
 
 
-    this.issueCertificatesService.issueCertificate(issuerAndSubjectData, this.keyStorePassword).subscribe(() => {
+    this.issueCertificatesService.issueCertificate(issuerAndSubjectData, this.passwordData.value.password).subscribe(() => {
       this.router.navigate(['/adminHomePage']);
       // treba hendlovati unetu pogresnu lozinku (401)
     });
