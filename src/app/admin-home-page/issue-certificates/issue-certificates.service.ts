@@ -12,8 +12,8 @@ export class IssueCertificatesService {
   constructor(private router: Router, private httpClient: HttpClient) {
   }
 
-  load(certificateRole: string) {
-    return this.httpClient.get('http://localhost:8081/api/keyStoreData/load/' + certificateRole);
+  doesKeyStoreExist(certificateRole: string) {
+    return this.httpClient.get('http://localhost:8081/api/keyStoreData/doesKeyStoreExist/' + certificateRole);
   }
 
   setKeyStorePassword(keyStoreData: KeyStoreData) {

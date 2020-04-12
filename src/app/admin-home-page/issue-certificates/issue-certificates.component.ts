@@ -45,6 +45,14 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.issueCertificatesService.doesKeyStoreExist('SELF_SIGNED').subscribe(data => {
+      if (!data) {
+        this.toggleCA.disabled = true;
+        this.toggleEND.disabled = true;
+      }
+    });
+
     this.issuerData = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
@@ -194,7 +202,7 @@ export class IssueCertificatesComponent implements OnInit {
 
   openModal(myModalNoPassword: TemplateRef<any>, myModalYesPassword: TemplateRef<any>) {
     const certificateRole = this.getRole();
-    this.issueCertificatesService.load(certificateRole).subscribe(data => {
+    this.issueCertificatesService.doesKeyStoreExist(certificateRole).subscribe(data => {
       if (!data) {
 
         this.modalService.open(myModalNoPassword, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
