@@ -1,12 +1,63 @@
-<div id="setKeyStorePassword">
-  <div id="toggle-group-cert" class="border-bottom">
+
+<div id="toggle-group-cert" class="border-bottom">
     <mat-slide-toggle #toggleSelf (change)="toggleSelfIssuing()">Self issued</mat-slide-toggle>
     <mat-slide-toggle #toggleCA (change)="toggleCaIssuing()">CA</mat-slide-toggle>
     <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
+</div>
+
+<form [formGroup]="formLoad" (ngSubmit)="loadCertificate()" [hidden]="formHidden1 || (!selectedSelf && !selectedCa && !selectedEnd)">
+    <div id="form1" class="form-group col-sm-4">
+      <label for="inputAlias">Alias</label>
+      <input class="form-control"
+             id="inputAlias"
+             name="alias" formControlName="alias"
+             placeholder="Enter alias"
+             [ngClass]="{'is-invalid': ls.alias.touched && ls.alias.errors, 'is-valid': ls.alias.touched && ls.alias.valid}"
+             required/>
+      <span style="color: red"
+            *ngIf="ls.alias.invalid && ls.alias.touched">Alias must contain only numbers</span>
+    </div>
+
+    <div id="form1" class="form-group col-lg-4">
+      <label for="inputKeyStorePassword">Key Store Password</label>
+      <input class="form-control"
+             id="inputKeyStorePassword"
+             name="keyStorePassword" formControlName="keyStorePassword"
+             type="password"
+             [ngClass]="{'is-invalid': ls.keyStorePassword.touched && ls.keyStorePassword.errors, 'is-valid': ls.keyStorePassword.touched && ls.keyStorePassword.valid}"
+             placeholder="Enter key store password"
+             required/>
+      <span style="color: red"
+            *ngIf="ls.keyStorePassword.invalid && ls.keyStorePassword.touched">Key Store Password need</span>
+    </div>
+
+  <div id="form2" align="center">
+    <button class="btn btn-success" [disabled]="formLoad.invalid" id="btnLoad" type="submit"> Load Certificate </button>
   </div>
-  <input id="serialNumber" type="text"/>
-  <input id="keyStorePassword" type="password"/>
-  <button (click)="loadCertificate()">
-    Load Certificate
-  </button>
+</form>
+
+
+
+<div [hidden]="tableShow">
+<table id="table" class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">First Name Issuer</th>
+    <th scope="col">Last Name Issuer</th>
+    <th scope="col" colspan="2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td></td>
+    <td></td>
+    <td align="center">
+      <button class="btn btn-primary">Download</button>
+    </td>
+    <td align="center">
+      <button class="btn btn-primary">Hide</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
 </div>

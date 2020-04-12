@@ -1,0 +1,26 @@
+#toggle-group-cert {
+  margin-left: 35%;
+  margin-top: 20px;
+  margin-right: 30%;
+}
+
+mat-slide-toggle {
+  padding-left: 50px;
+  font-size: 18px;
+}
+
+#form1 {
+  padding-top: 10px;
+  margin-left: 36%;
+  margin-right: 30%;
+}
+
+#form2 {
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-left: 36%;
+  margin-right: 30%;
+}
+
+
+
