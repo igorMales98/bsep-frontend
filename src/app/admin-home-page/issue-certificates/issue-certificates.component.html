@@ -4,6 +4,8 @@
   <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
 </div>
 
+<notifier-container></notifier-container>
+
 <div id="selectDigitalEntity">
   <mat-button-toggle-group>
     <mat-button-toggle #toggleUser (change)="toggleUserE()">User</mat-button-toggle>
@@ -11,7 +13,8 @@
   </mat-button-toggle-group>
 </div>
 
-<div class="col" id="caDropdown" [hidden]="!showDropdown">
+<div class="col" id="caDropdown"
+     [hidden]="hideDropdown()">
   <div ngbDropdown class="d-inline-block">
     <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -237,7 +240,7 @@
   </div>
 </div>
 
-<div id="btnIssue" (click)="openModal(myModalNoPassword, myModalYesPassword)">
+<div id="btnIssue" (click)="openModal(myModalNoPassword, myModalYesPassword)" [hidden]="hideIssueBtn()">
   <button class="btn btn-success"> Issue certificate</button>
 </div>
 

@@ -8,6 +8,7 @@ import {IssuerAndSubjectData} from '../../model/issuerAndSubjectData';
 import {IssueCertificatesService} from './issue-certificates.service';
 import {KeyStoreData} from 'src/app/model/keyStoreData';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-issue-certificates',
@@ -41,14 +42,14 @@ export class IssueCertificatesComponent implements OnInit {
   closeResult: string;
 
   selfIssuedExists = false;
-  Arr = Array; // Array type captured in a variable
-  num = 5;
 
   allSSandCA: IssuerAndSubjectData[] = [];
-  showDropdown = false;
+
+  notifier: NotifierService;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private issueCertificatesService: IssueCertificatesService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal, private notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
   ngOnInit(): void {
@@ -94,7 +95,10 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   emailDomainValidator(control: FormControl) {
-    const email = control.value;
+    let email = control.value;
+    if (email === null) {
+      email = '';
+    }
     const [name, domain] = email.split('@');
     if (domain !== 'gmail.com' && domain !== 'yahoo.com' && domain !== 'uns.ac.rs') {
       return {
@@ -108,40 +112,46 @@ export class IssueCertificatesComponent implements OnInit {
   }
 
   toggleSelfIssuing() {
-    this.showDropdown = false;
-    this.issuerData.enable();
-    this.subjectDataDisplayed = false;
-    this.toggleSELF.checked = this.toggleSELF.checked !== true;
+    this.toggleSELF.checked = true;
     this.toggleCA.checked = false;
     this.toggleEND.checked = false;
+
+    this.issuerData.enable();
+    setTimeout(() => this.issuerData.reset());
+    this.subjectDataDisplayed = false;
+
     this.selectedSelf = true;
     this.selectedCa = false;
     this.selectedEnd = false;
   }
 
   toggleCaIssuing() {
-    this.showDropdown = true;
+    this.toggleCA.checked = true;
+    this.toggleSELF.checked = false;
+    this.toggleEND.checked = false;
+
     if (this.selfIssuedExists) {
       this.issuerData.disable();
     }
+    this.issuerData.reset();
     this.subjectDataDisplayed = true;
-    this.toggleCA.checked = this.toggleSELF.checked !== true;
-    this.toggleSELF.checked = false;
-    this.toggleEND.checked = false;
+
     this.selectedSelf = false;
     this.selectedCa = true;
     this.selectedEnd = false;
   }
 
   toggleEndIssuing() {
-    this.showDropdown = true;
+    this.toggleEND.checked = true;
+    this.toggleSELF.checked = false;
+    this.toggleCA.checked = false;
+
     if (this.selfIssuedExists) {
       this.issuerData.disable();
     }
+    this.issuerData.reset();
     this.subjectDataDisplayed = true;
-    this.toggleEND.checked = this.toggleSELF.checked !== true;
-    this.toggleSELF.checked = false;
-    this.toggleCA.checked = false;
+
     this.selectedSelf = false;
     this.selectedCa = false;
     this.selectedEnd = true;
@@ -188,11 +198,14 @@ export class IssueCertificatesComponent implements OnInit {
 
 
     this.issueCertificatesService.issueCertificate(issuerAndSubjectData, this.passwordData.value.password).subscribe(() => {
-      this.router.navigate(['/adminHomePage']);
-      // treba hendlovati unetu pogresnu lozinku (401)
-    });
+        this.showNotification('success', 'You have successfully issued a certificate.');
+        this.modalService.dismissAll();
+        this.router.navigate(['/adminHomePage']);
+      },
+      error => {
+        this.showNotification('error', error.error);
+      });
 
-    this.modalService.dismissAll();
   }
 
   get fi() {
@@ -280,5 +293,29 @@ export class IssueCertificatesComponent implements OnInit {
     this.issuerData.value.email = issuer.email;
     this.issuerData.value.phone = issuer.phone;
 
+  }
+
+  hideDropdown() {
+    if (this.selectedSelf) {
+      return true;
+    }
+
+    if (!this.selectedSelf && !this.selectedCa && !this.selectedEnd) {
+      return true;
+    } else {
+      return !this.selectedUser && !this.selectedSoftwareCompany;
+    }
+  }
+
+  hideIssueBtn() {
+    if (this.selectedSelf) {
+      return this.issuerData.invalid;
+    } else {
+      return this.issuerData.invalid || this.subjectData.invalid;
+    }
+  }
+
+  public showNotification(type: string, message: string): void {
+    this.notifier.notify(type, message);
   }
 }

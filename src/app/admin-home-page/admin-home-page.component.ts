@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-admin-home-page',
@@ -8,10 +9,17 @@ import {Router} from '@angular/router';
 })
 export class AdminHomePageComponent implements OnInit {
 
-  constructor(private router: Router) {
+  notifier: NotifierService;
+
+  constructor(private router: Router, private notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
   ngOnInit(): void {
+  }
+
+  public showNotification(type: string, message: string): void {
+    this.notifier.notify(type, message);
   }
 
 }

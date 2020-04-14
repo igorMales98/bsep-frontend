@@ -1,8 +1,10 @@
-<div id="toggle-group-cert" class="border-bottom">
+<div id="toggle-group-cert" class="border-bottom animated slideInDown">
   <mat-slide-toggle #toggleSelf (change)="toggleSelfIssuing()">Self issued</mat-slide-toggle>
   <mat-slide-toggle #toggleCA (change)="toggleCaIssuing()">CA</mat-slide-toggle>
   <mat-slide-toggle #toggleEnd (change)="toggleEndIssuing()">End entity</mat-slide-toggle>
 </div>
+
+<notifier-container></notifier-container>
 
 <form [formGroup]="formLoad" (ngSubmit)="loadCertificate()"
       [hidden]="formHidden1 || (!selectedSelf && !selectedCa && !selectedEnd)">

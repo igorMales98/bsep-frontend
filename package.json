@@ -28,6 +28,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "angular-animations": "0.0.10",
     "angular-bootstrap-md": "^9.0.1",
+    "angular-notifier": "^6.0.1",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",

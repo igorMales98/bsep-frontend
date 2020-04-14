@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoadCertificatesService} from './load-certificates.service';
 import {Router} from '@angular/router';
-import {KeyStoreData} from '../../model/keyStoreData';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CertificateSubject} from '../../model/certificateSubject';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-load-certificates',
@@ -33,7 +33,11 @@ export class LoadCertificatesComponent implements OnInit {
   lastNameSubject: string;
   emailSubject: string;
 
-  constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder) {
+  notifier: NotifierService;
+
+  constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder,
+              private notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
 
@@ -88,14 +92,17 @@ export class LoadCertificatesComponent implements OnInit {
 
     const password1 = this.formLoad.value.keyStorePassword;
 
-    this.tableShow = false;
     this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe(data => {
-      this.certificateInfo = data;
-      const split = this.certificateInfo.name.split(',');
-      this.firstNameSubject = split[7].split('=')[1];
-      this.lastNameSubject = split[6].split('=')[1];
-      this.emailSubject = split[2].split('=')[1];
-    });
+        this.certificateInfo = data;
+        this.tableShow = false;
+        const split = this.certificateInfo.name.split(',');
+        this.firstNameSubject = split[7].split('=')[1];
+        this.lastNameSubject = split[6].split('=')[1];
+        this.emailSubject = split[2].split('=')[1];
+      },
+      error => {
+        this.showNotification('error', error.error);
+      });
   }
 
   get li() {
@@ -104,6 +111,10 @@ export class LoadCertificatesComponent implements OnInit {
 
   get ls() {
     return this.formLoad.controls;
+  }
+
+  public showNotification(type: string, message: string): void {
+    this.notifier.notify(type, message);
   }
 
 }
