@@ -35,6 +35,9 @@ export class LoadCertificatesComponent implements OnInit {
 
   notifier: NotifierService;
 
+  correctPassword: string;
+  correctAlias: string;
+
   constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder,
               private notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -56,6 +59,10 @@ export class LoadCertificatesComponent implements OnInit {
     this.selectedCa = false;
     this.selectedEnd = false;
     this.formHidden1 = false;
+    if (!this.selectedSelf) {
+      this.tableShow = true;
+      this.formLoad.reset();
+    }
   }
 
   toggleCaIssuing() {
@@ -66,6 +73,10 @@ export class LoadCertificatesComponent implements OnInit {
     this.selectedCa = true;
     this.selectedEnd = false;
     this.formHidden1 = false;
+    if (!this.selectedCa) {
+      this.tableShow = true;
+      this.formLoad.reset();
+    }
   }
 
   toggleEndIssuing() {
@@ -76,18 +87,16 @@ export class LoadCertificatesComponent implements OnInit {
     this.selectedCa = false;
     this.selectedEnd = true;
     this.formHidden1 = false;
+    if (!this.selectedEnd) {
+      this.tableShow = true;
+      this.formLoad.reset();
+    }
   }
 
 
   loadCertificate() {
-    let role = '';
-    if (this.selectedSelf) {
-      role = 'SELF_SIGNED';
-    } else if (this.selectedCa) {
-      role = 'INTERMEDIATE';
-    } else if (this.selectedEnd) {
-      role = 'END_ENTITY';
-    }
+    const role = this.getRole();
+
     const alias1 = this.formLoad.value.alias;
 
     const password1 = this.formLoad.value.keyStorePassword;
@@ -99,6 +108,8 @@ export class LoadCertificatesComponent implements OnInit {
         this.firstNameSubject = split[7].split('=')[1];
         this.lastNameSubject = split[6].split('=')[1];
         this.emailSubject = split[2].split('=')[1];
+        this.correctPassword = password1;
+        this.correctAlias = alias1;
       },
       error => {
         this.showNotification('error', error.error);
@@ -117,4 +128,19 @@ export class LoadCertificatesComponent implements OnInit {
     this.notifier.notify(type, message);
   }
 
+  downloadCertificate() {
+    this.loadCertificatesService.downloadCertificate(this.getRole(), this.correctPassword, this.correctAlias);
+  }
+
+  getRole() {
+    let role = '';
+    if (this.selectedSelf) {
+      role = 'SELF_SIGNED';
+    } else if (this.selectedCa) {
+      role = 'INTERMEDIATE';
+    } else if (this.selectedEnd) {
+      role = 'END_ENTITY';
+    }
+    return role;
+  }
 }
