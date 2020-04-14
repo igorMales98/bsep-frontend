@@ -32,6 +32,7 @@ export class LoadCertificatesComponent implements OnInit {
   firstNameSubject: string;
   lastNameSubject: string;
   emailSubject: string;
+  certificateValid: boolean;
 
   constructor(private router: Router, private loadCertificatesService: LoadCertificatesService, private formBuilder: FormBuilder) {
   }
@@ -88,13 +89,22 @@ export class LoadCertificatesComponent implements OnInit {
 
     const password1 = this.formLoad.value.keyStorePassword;
 
-    this.tableShow = false;
+
     this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe(data => {
+      this.tableShow = false;
+      this.certificateValid = true;
       this.certificateInfo = data;
       const split = this.certificateInfo.name.split(',');
       this.firstNameSubject = split[7].split('=')[1];
       this.lastNameSubject = split[6].split('=')[1];
       this.emailSubject = split[2].split('=')[1];
+      this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
+        if(data){
+          this.certificateValid = true;
+        } else {
+          this.certificateValid = false;
+        }
+      });
     });
   }
 
@@ -105,5 +115,10 @@ export class LoadCertificatesComponent implements OnInit {
   get ls() {
     return this.formLoad.controls;
   }
+
+  withdrawCertificate(email: string) {
+    this.loadCertificatesService.withdrawCertificate(email).subscribe();
+  }
+
 
 }

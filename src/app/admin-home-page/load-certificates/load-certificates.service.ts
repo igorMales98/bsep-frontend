@@ -20,4 +20,13 @@ export class LoadCertificatesService {
     return this.httpClient.get<CertificateSubject>('http://localhost:8081/api/keyStoreData/loadCertificate/' + certificateRole +
       '/' + alias + '/' + keyStorePassword);
   }
+
+  withdrawCertificate(certificateEmail: string){
+    return this.httpClient.put('http://localhost:8081/api/keyStoreData/withdrawCertificate/' + certificateEmail, null);
+  }
+
+  getCertificateStatus(certificateEmail: string){
+    return this.httpClient.get('http://localhost:8081/api/keyStoreData/getCertificateStatus/' + certificateEmail);
+  }
+
 }
