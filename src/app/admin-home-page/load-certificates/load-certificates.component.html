@@ -59,7 +59,8 @@
         <button class="btn btn-primary" (click)="downloadCertificate()">Download</button>
       </td>
       <td align="center">
-        <button class="btn btn-primary">Withdraw</button>
+        <button class="btn btn-primary" id="btnWithdraw" type="submit" (click)="withdrawCertificate(emailSubject)">Withdraw</button>
+        <label> Certificate is revoked. </label>
       </td>
     </tr>
     </tbody>

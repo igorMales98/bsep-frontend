@@ -32,6 +32,7 @@ export class LoadCertificatesComponent implements OnInit {
   firstNameSubject: string;
   lastNameSubject: string;
   emailSubject: string;
+  certificateValid: boolean;
 
   notifier: NotifierService;
 
@@ -101,6 +102,7 @@ export class LoadCertificatesComponent implements OnInit {
 
     const password1 = this.formLoad.value.keyStorePassword;
 
+
     this.loadCertificatesService.loadCertificate(role, alias1, password1).subscribe(data => {
         this.certificateInfo = data;
         this.tableShow = false;
@@ -114,6 +116,21 @@ export class LoadCertificatesComponent implements OnInit {
       error => {
         this.showNotification('error', error.error);
       });
+      this.tableShow = false;
+      this.certificateValid = true;
+      this.certificateInfo = data;
+      const split = this.certificateInfo.name.split(',');
+      this.firstNameSubject = split[7].split('=')[1];
+      this.lastNameSubject = split[6].split('=')[1];
+      this.emailSubject = split[2].split('=')[1];
+      this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
+        if(data){
+          this.certificateValid = true;
+        } else {
+          this.certificateValid = false;
+        }
+      });
+    });
   }
 
   get li() {
@@ -143,4 +160,9 @@ export class LoadCertificatesComponent implements OnInit {
     }
     return role;
   }
+  withdrawCertificate(email: string) {
+    this.loadCertificatesService.withdrawCertificate(email).subscribe();
+  }
+
+
 }
