@@ -24,10 +24,6 @@ export class IssueCertificatesService {
     return this.httpClient.post('http://localhost:8081/api/certificates/issueCertificate/' + keyStorePassword, issuerAndSubjectData);
   }
 
-  checkKeyStorePassword(keyStoreData: KeyStoreData) {
-    return this.httpClient.get('http://localhost:8081/api/keyStoreData/checkPassword/' + keyStoreData.name + '/' + keyStoreData.password);
-  }
-
   getAllSSAndCa() {
     return this.httpClient.get<IssuerAndSubjectData[]>('http://localhost:8081/api/issuersAndSubjects/getSSAndCA');
   }

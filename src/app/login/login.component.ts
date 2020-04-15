@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../security/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginRequest} from '../model/loginRequest';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,11 @@ import {LoginRequest} from '../model/loginRequest';
 export class LoginComponent implements OnInit {
 
   userData: FormGroup;
+  notifier: NotifierService;
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder,
+              private notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
   ngOnInit(): void {
@@ -28,14 +32,18 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(loginRequest).subscribe(
       () => {
-        alert('success');
         console.log(localStorage.getItem('user'));
         this.router.navigate(['/adminHomePage']);
+        this.showNotification('success', 'Welcome ');
       },
       (err) => {
-        alert('Wrong username or password');
+        this.showNotification('error', 'Wrong username or password. ');
       }
     );
+  }
+
+  public showNotification(type: string, message: string): void {
+    this.notifier.notify(type, message);
   }
 
 }
