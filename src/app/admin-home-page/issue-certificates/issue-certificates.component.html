@@ -119,11 +119,50 @@
               <span style="color: red"
                     *ngIf="fi.phone.invalid && fi.phone.touched">Phone must contain 9 or 10 numbers</span>
             </div>
-
+          </div>
+        </form>
+          <div class="col">
+          <div class="form-group col-lg-10">
+            <form [formGroup]="keyUsage">
+            <label>Key Usage</label> <br/>
+            <input formControlName="digitalSignature" type="checkbox" class="form-check-input" id="digitalSignatureI">
+            <label class="form-check-label" for="digitalSignatureI">Digital Signature</label> <br/>
+            <input formControlName="nonRepudation" type="checkbox" class="form-check-input" id="nonRepudationI">
+            <label class="form-check-label" for="nonRepudationI">Non Repudation</label> <br/>
+            <input formControlName="keyEncipherment" type="checkbox" class="form-check-input" id="keyEnciphermentI">
+            <label class="form-check-label" for="keyEnciphermentI">Key Encipherment</label> <br/>
+            <input formControlName="dataEncipherment" type="checkbox" class="form-check-input" id="dataEnciphermentI">
+            <label class="form-check-label" for="dataEnciphermentI">Data Encipherment</label> <br/>
+            <input formControlName="keyAgreement" type="checkbox" class="form-check-input" id="keyAgreementI">
+            <label class="form-check-label" for="keyAgreementI">Key Agreement</label> <br/>
+            <input formControlName="keyCertSign" type="checkbox" class="form-check-input" id="keyCertSignI">
+            <label class="form-check-label" for="keyCertSignI">Key Certificate Sign</label> <br/>
+            <input formControlName="cRLSign" type="checkbox" class="form-check-input" id="cRLSignI">
+            <label class="form-check-label" for="cRLSignI">CRL Sign</label> <br/>
+            <input formControlName="encipherOnly" type="checkbox" class="form-check-input" id="encipherOnlyI">
+            <label class="form-check-label" for="encipherOnlyI">Encipher Only</label> <br/>
+            <input formControlName="decipherOnly" type="checkbox" class="form-check-input" id="decipherOnlyI">
+            <label class="form-check-label" for="decipherOnlyI">Decipher Only</label> <br/> <br/>
+          </form>
+          <form [formGroup]="extendedKeyUsage">
+            <label>Extension Key Usage</label> <br/>
+            <input formControlName="serverAuth" type="checkbox" class="form-check-input" id="serverAuthI">
+            <label class="form-check-label" for="serverAuthI">Server Authentication</label> <br/>
+            <input formControlName="clientAuth" type="checkbox" class="form-check-input" id="clientAuthI">
+            <label class="form-check-label" for="clientAuthI">Client Authentication</label> <br/>
+            <input formControlName="codeSigning" type="checkbox" class="form-check-input" id="codeSigningI">
+            <label class="form-check-label" for="codeSigningI">Code Signing</label> <br/>
+            <input formControlName="emailProtection" type="checkbox" class="form-check-input" id="emailProtectionI">
+            <label class="form-check-label" for="emailProtectionI">Email protection</label> <br/>
+            <input formControlName="timeStamping" type="checkbox" class="form-check-input" id="timeStampingI">
+            <label class="form-check-label" for="timeStampingI">Time Stamping</label> <br/>
+            <input formControlName="oCSPSigning" type="checkbox" class="form-check-input" id="oCSPSigningI">
+            <label class="form-check-label" for="oCSPSigningI">OCSP Signing</label> <br/>
+          </form>
+          </div>
 
           </div>
 
-        </form>
       </div>
     </div>
   </div>
@@ -233,8 +272,47 @@
             </div>
 
           </div>
-
         </form>
+        <div class="col">
+        <div class="form-group col-lg-10">
+          <form [formGroup]="keyUsageS">
+          <label>Key Usage</label> <br/>
+          <input formControlName="digitalSignature" type="checkbox" class="form-check-input" id="digitalSignatureS">
+          <label class="form-check-label" for="digitalSignatureS">Digital Signature</label> <br/>
+          <input formControlName="nonRepudation" type="checkbox" class="form-check-input" id="nonRepudationS">
+          <label class="form-check-label" for="nonRepudationS">Non Repudation</label> <br/>
+          <input formControlName="keyEncipherment" type="checkbox" class="form-check-input" id="keyEnciphermentS">
+          <label class="form-check-label" for="keyEnciphermentS">Key Encipherment</label> <br/>
+          <input formControlName="dataEncipherment" type="checkbox" class="form-check-input" id="dataEnciphermentS">
+          <label class="form-check-label" for="dataEnciphermentS">Data Encipherment</label> <br/>
+          <input formControlName="keyAgreement" type="checkbox" class="form-check-input" id="keyAgreementS">
+          <label class="form-check-label" for="keyAgreementS">Key Agreement</label> <br/>
+          <input formControlName="keyCertSign" type="checkbox" class="form-check-input" id="keyCertSignS">
+          <label class="form-check-label" for="keyCertSignS">Key Certificate Sign</label> <br/>
+          <input formControlName="cRLSign" type="checkbox" class="form-check-input" id="cRLSignS">
+          <label class="form-check-label" for="cRLSignS">CRL Sign</label> <br/>
+          <input formControlName="encipherOnly" type="checkbox" class="form-check-input" id="encipherOnlyS">
+          <label class="form-check-label" for="encipherOnlyS">Encipher Only</label> <br/>
+          <input formControlName="decipherOnly" type="checkbox" class="form-check-input" id="decipherOnlyS">
+          <label class="form-check-label" for="decipherOnlyS">Decipher Only</label> <br/> <br/>
+        </form>
+        <form [formGroup]="extendedKeyUsageS">
+          <label>Extension Key Usage</label> <br/>
+          <input formControlName="serverAuth" type="checkbox" class="form-check-input" id="serverAuthS">
+          <label class="form-check-label" for="serverAuthS">Server Authentication</label> <br/>
+          <input formControlName="clientAuth" type="checkbox" class="form-check-input" id="clientAuthS">
+          <label class="form-check-label" for="clientAuthS">Client Authentication</label> <br/>
+          <input formControlName="codeSigning" type="checkbox" class="form-check-input" id="codeSigningS">
+          <label class="form-check-label" for="codeSigningS">Code Signing</label> <br/>
+          <input formControlName="emailProtection" type="checkbox" class="form-check-input" id="emailProtectionS">
+          <label class="form-check-label" for="emailProtectionS">Email Protection</label> <br/>
+          <input formControlName="timeStamping" type="checkbox" class="form-check-input" id="timeStampingS">
+          <label class="form-check-label" for="timeStampingS">Time Stamping</label> <br/>
+          <input formControlName="oCSPSigning" type="checkbox" class="form-check-input" id="oCSPSigningS">
+          <label class="form-check-label" for="oCSPSigningS">OCSP Signing</label> <br/>
+        </form>
+        </div>
+
       </div>
     </div>
   </div>
