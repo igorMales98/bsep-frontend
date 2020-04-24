@@ -10,10 +10,6 @@ import {KeyStoreData} from 'src/app/model/keyStoreData';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
 
-//disable ceo issuer deo kod !SELF
-//disable sve subject koji nema taj issuer
-//sve uraditi i za extended
-//za Igora: da li je dovoljno u bazi da se cuva? pri kreiranju prvog CA izbacuje neku ts error
 
 @Component({
   selector: 'app-issue-certificates',
@@ -244,7 +240,6 @@ export class IssueCertificatesComponent implements OnInit {
     let issuerAndSubjectData;
 
     if (!this.toggleSELF.checked === true) {
-      console.log("keyusage: "+this.keyUsageS.value.digitalSignature);
       let keyusage: boolean[] = new Array();
       keyusage[0] = this.keyUsageS.value.digitalSignature;
       keyusage[1] = this.keyUsageS.value.nonRepudation;
@@ -270,7 +265,6 @@ export class IssueCertificatesComponent implements OnInit {
         this.subjectData.value.country, this.subjectData.value.city, this.subjectData.value.email, this.subjectData.value.phone,
         typeOfEntity, certificateRole, keyusage, extendedkeyusage);
     } else {
-      console.log("keyusage: "+this.keyUsage.value.digitalSignature);
       let keyusage: boolean[] = new Array();
       keyusage[0] = this.keyUsage.value.digitalSignature;
       keyusage[1] = this.keyUsage.value.nonRepudation;
@@ -297,7 +291,6 @@ export class IssueCertificatesComponent implements OnInit {
         typeOfEntity, certificateRole, keyusage, extendedkeyusage);
     }
 
-    console.log("issue: "+issuerAndSubjectData.extendedKeyUsage);
     this.issueCertificatesService.issueCertificate(issuerAndSubjectData, this.passwordData.value.password).subscribe(() => {
         this.showNotification('success', 'You have successfully issued a certificate.');
         this.modalService.dismissAll();
