@@ -59,8 +59,8 @@
         <button class="btn btn-primary" (click)="downloadCertificate()">Download</button>
       </td>
       <td align="center">
-        <button class="btn btn-primary" id="btnWithdraw" type="submit" (click)="withdrawCertificate(emailSubject)">Withdraw</button>
-        <label> Certificate is revoked. </label>
+        <button *ngIf="certificateValid" class="btn btn-primary" id="btnWithdraw" type="submit" (click)="withdrawCertificate(emailSubject)">Withdraw</button>
+        <label *ngIf="!certificateValid"> Certificate is revoked. </label>
       </td>
     </tr>
     </tbody>

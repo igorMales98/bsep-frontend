@@ -35,6 +35,12 @@
             <fa-icon [icon]="faList" class="mr-1"></fa-icon>
             Load Certificates</a>
         </li>
+
+        <li class="nav-item active" *ngIf="checkLoggedIn()">
+          <a class="nav-link" routerLink="/checkCertificateStatus">
+            <fa-icon [icon]="faCheckStatus" class="mr-1"></fa-icon>
+            Check Certificate Status</a>
+        </li>
       </ul>
 
       <ul class="navbar-nav mr-0">

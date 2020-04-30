@@ -19,6 +19,7 @@ import {IssueCertificatesComponent} from './admin-home-page/issue-certificates/i
 import {TokenInterceptor} from './security/tokenInterceptor';
 import {LoadCertificatesComponent} from './admin-home-page/load-certificates/load-certificates.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
+import { CheckCertificateStatusComponent } from './admin-home-page/check-certificate-status/check-certificate-status.component';
 
 /**
  * Custom angular notifier options
@@ -70,7 +71,8 @@ const customNotifierOptions: NotifierOptions = {
     LoginComponent,
     AdminHomePageComponent,
     IssueCertificatesComponent,
-    LoadCertificatesComponent
+    LoadCertificatesComponent,
+    CheckCertificateStatusComponent
   ],
   imports: [
     BrowserModule,
