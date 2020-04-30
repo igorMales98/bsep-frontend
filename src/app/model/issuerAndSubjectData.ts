@@ -1,3 +1,5 @@
+import { ExtendedKeyUsage } from './extendedKeyUsage';
+
 export class IssuerAndSubjectData {
   firstName: string;
   lastName: string;
@@ -20,10 +22,13 @@ export class IssuerAndSubjectData {
   typeOfEntity: string;
   certificateRole: string;
 
+  keyUsage: boolean[];
+  extendedKeyUsage: boolean[];
+
   constructor(firstName: string, lastName: string, organization: string, organizationUnit: string, country: string, city: string,
               email: string, phone: string, firstNameSubject: string, lastNameSubject: string, organizationSubject: string,
               organizationUnitSubject: string, countrySubject: string, citySubject: string, emailSubject: string, phoneSubject: string,
-              typeOfEntity: string, certificateRole: string) {
+              typeOfEntity: string, certificateRole: string, keyUsage: boolean[],extendedKeyUsage: boolean[]) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.organization = organization;
@@ -44,6 +49,9 @@ export class IssuerAndSubjectData {
 
     this.typeOfEntity = typeOfEntity;
     this.certificateRole = certificateRole;
+ 
+    this.keyUsage = keyUsage;
+    this.extendedKeyUsage = extendedKeyUsage;
   }
 
 }

@@ -94,6 +94,7 @@ export class LoadCertificatesComponent implements OnInit {
     }
   }
 
+
   loadCertificate() {
     const role = this.getRole();
 
@@ -111,24 +112,20 @@ export class LoadCertificatesComponent implements OnInit {
         this.emailSubject = split[2].split('=')[1];
         this.correctPassword = password1;
         this.correctAlias = alias1;
+
+        /*
+        this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
+          if (data) {
+            this.certificateValid = true;
+          } else {
+            this.certificateValid = false;
+          }
+        });*/
       },
       error => {
         this.showNotification('error', error.error);
       });
-      this.tableShow = false;
-      this.certificateValid = true;
-      const split = this.certificateInfo.name.split(',');
-      this.firstNameSubject = split[7].split('=')[1];
-      this.lastNameSubject = split[6].split('=')[1];
-      this.emailSubject = split[2].split('=')[1];
-      this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
-        if(data){
-          this.certificateValid = true;
-        } else {
-          this.certificateValid = false;
-        }
-      });
-
+    });
   }
 
   get li() {
@@ -162,8 +159,6 @@ export class LoadCertificatesComponent implements OnInit {
   withdrawCertificate(email: string) {
     this.loadCertificatesService.withdrawCertificate(email).subscribe();
   }
-
-
 
 
 }
