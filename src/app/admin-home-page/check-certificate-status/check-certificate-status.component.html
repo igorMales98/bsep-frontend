@@ -1,0 +1,33 @@
+<notifier-container></notifier-container>
+
+<form [formGroup]="formCheck" (ngSubmit)="checkStatus()">
+  <div id="form1" class="form-group col-sm-4">
+    <label for="inputAlias">Alias</label>
+    <input class="form-control"
+           id="inputAlias"
+           name="alias" formControlName="alias"
+           placeholder="Enter alias"
+           [ngClass]="{'is-invalid': ls.alias.touched && ls.alias.errors, 'is-valid': ls.alias.touched && ls.alias.valid}"
+           required/>
+    <span style="color: red"
+          *ngIf="ls.alias.invalid && ls.alias.touched">Alias must contain only numbers</span>
+  </div>
+
+  <div id="form2" align="center">
+    <button class="btn btn-success" [disabled]="formCheck.invalid" id="btnCheck" type="submit"> Check Certificate</button>
+  </div>
+
+  <div id="form3" class="form-group col-sm-4" *ngIf="certificateStatus">
+    <label for="inputAlias">Certificate status</label>
+    <input class="form-control"
+           id="inputStatus"
+           name="status" formControlName="status"
+           value="{{certificateStatus}}"
+           disabled
+           required/>
+  </div>
+
+  
+
+
+</form>

@@ -125,9 +125,8 @@ export class LoadCertificatesComponent implements OnInit {
       error => {
         this.showNotification('error', error.error);
       });
-
+    });
   }
-
 
   get li() {
     return this.formLoad.controls;
