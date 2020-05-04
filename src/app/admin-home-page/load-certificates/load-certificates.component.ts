@@ -32,7 +32,7 @@ export class LoadCertificatesComponent implements OnInit {
   firstNameSubject: string;
   lastNameSubject: string;
   emailSubject: string;
-  certificateValid: boolean;
+  certificateValid: boolean = true;
 
   notifier: NotifierService;
 
@@ -113,19 +113,17 @@ export class LoadCertificatesComponent implements OnInit {
         this.correctPassword = password1;
         this.correctAlias = alias1;
 
-        /*
         this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
           if (data) {
             this.certificateValid = true;
           } else {
             this.certificateValid = false;
           }
-        });*/
+        });
       },
       error => {
         this.showNotification('error', error.error);
       });
-    });
   }
 
   get li() {

@@ -1,4 +1,4 @@
-import { ExtendedKeyUsage } from './extendedKeyUsage';
+//import { ExtendedKeyUsage } from './extendedKeyUsage';
 
 export class IssuerAndSubjectData {
   firstName: string;
@@ -49,7 +49,7 @@ export class IssuerAndSubjectData {
 
     this.typeOfEntity = typeOfEntity;
     this.certificateRole = certificateRole;
- 
+
     this.keyUsage = keyUsage;
     this.extendedKeyUsage = extendedKeyUsage;
   }
