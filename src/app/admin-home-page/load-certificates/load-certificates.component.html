@@ -46,6 +46,7 @@
       <th scope="col">First Name Subject</th>
       <th scope="col">Last Name Subject</th>
       <th scope="col">Email Subject</th>
+      <th scope="col">Certificate Status</th>
       <th scope="col">Download</th>
       <th scope="col">Withdraw</th>
     </tr>
@@ -55,12 +56,13 @@
       <td>{{firstNameSubject}}</td>
       <td>{{lastNameSubject}}</td>
       <td>{{emailSubject}}</td>
+      <td>{{certificateStatus}}</td>
       <td align="center">
         <button class="btn btn-primary" (click)="downloadCertificate()">Download</button>
       </td>
       <td align="center">
-        <button *ngIf="certificateValid" class="btn btn-primary" id="btnWithdraw" type="submit" (click)="withdrawCertificate(emailSubject)">Withdraw</button>
-        <label *ngIf="!certificateValid"> Certificate is revoked. </label>
+        <button [disabled]="certificateStatus === 'REVOKED'" class="btn btn-danger" id="btnWithdraw" type="submit" (click)="withdrawCertificate(emailSubject)">Withdraw</button>
+        
       </td>
     </tr>
     </tbody>

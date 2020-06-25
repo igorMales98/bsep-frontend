@@ -1,4 +1,3 @@
-import { ExtendedKeyUsage } from './extendedKeyUsage';
 
 export class IssuerAndSubjectData {
   firstName: string;
