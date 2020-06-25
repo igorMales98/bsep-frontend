@@ -33,6 +33,7 @@ export class LoadCertificatesComponent implements OnInit {
   lastNameSubject: string;
   emailSubject: string;
   certificateValid: boolean;
+  certificateStatus: String;
 
   notifier: NotifierService;
 
@@ -113,19 +114,16 @@ export class LoadCertificatesComponent implements OnInit {
         this.correctPassword = password1;
         this.correctAlias = alias1;
 
-        /*
+        
         this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
-          if (data) {
-            this.certificateValid = true;
-          } else {
-            this.certificateValid = false;
-          }
-        });*/
+          this.certificateStatus = data;
+          console.log(this.certificateStatus);          
+        });
+
       },
       error => {
         this.showNotification('error', error.error);
       });
-    });
   }
 
   get li() {
@@ -157,7 +155,11 @@ export class LoadCertificatesComponent implements OnInit {
   }
 
   withdrawCertificate(email: string) {
-    this.loadCertificatesService.withdrawCertificate(email).subscribe();
+    this.loadCertificatesService.withdrawCertificate(email).subscribe(data => {
+      this.loadCertificatesService.getCertificateStatus(email).subscribe(data => {
+        this.certificateStatus = data;
+      });
+    });
   }
 
 

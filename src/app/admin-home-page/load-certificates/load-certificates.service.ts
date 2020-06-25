@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {KeyStoreData} from '../../model/keyStoreData';
 import {CertificateSubject} from '../../model/certificateSubject';
+import {CertificateStatus} from '../../model/certificateStatus';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +25,11 @@ export class LoadCertificatesService {
 
 
   withdrawCertificate(certificateEmail: string){
-    return this.httpClient.put('http://localhost:8081/api/keyStoreData/withdrawCertificate/' + certificateEmail, null);
+    return this.httpClient.put('http://localhost:8081/api/certificates/withdraw/' + certificateEmail, null);
   }
 
   getCertificateStatus(certificateEmail: string){
-    return this.httpClient.get('http://localhost:8081/api/keyStoreData/getCertificateStatus/' + certificateEmail);
+    return this.httpClient.get('http://localhost:8081/api/certificates/' + certificateEmail, {responseType: 'text'});
   }
 
 }

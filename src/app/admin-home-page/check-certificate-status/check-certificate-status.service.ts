@@ -9,7 +9,6 @@ export class CheckCertificateStatusService {
   }
 
   getCertificateStatus(alias: string){
-    //napisi putanju koja je na beku
-    return this.httpClient.get('http://localhost:8081/api/certificates/checkStatus/' + alias, {responseType: 'text'});
+    return this.httpClient.get('http://localhost:8081/api/certificates/' + alias, {responseType: 'text'});
   }
 }

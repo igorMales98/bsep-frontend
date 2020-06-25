@@ -10,26 +10,23 @@ import {NotifierService} from 'angular-notifier';
 })
 export class CheckCertificateStatusComponent implements OnInit {
 
-  //Polja se pisu iznad konstruktora
   formCheck: FormGroup;
   certificateStatus: string;
   notifier: NotifierService;
+  empty: boolean;
 
   constructor(private formBuilder: FormBuilder, private checkCertificateStatusService: CheckCertificateStatusService,
               private notifierService: NotifierService){
     this.notifier = notifierService;
   }
 
-  // Ovde vrsim validaciju polja za alijas
-  // U konstruktor stavljam klase koje su mi potrebne za dependency injection
-  // U ngOnInit dobavljam podatke koji mi trebaju i validaciju za njih, ovde stavljam sve ono sto mi je potrebno pri pokretanju stranice
+
   ngOnInit(): void {
     this.formCheck = this.formBuilder.group({
         alias: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
   }
   
-
   get ls() {
     return this.formCheck.controls;
   }
