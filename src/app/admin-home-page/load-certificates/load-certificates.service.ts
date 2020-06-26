@@ -29,7 +29,7 @@ export class LoadCertificatesService {
   }
 
   getCertificateStatus(certificateEmail: string){
-    return this.httpClient.get('http://localhost:8081/api/certificates/' + certificateEmail, {responseType: 'text'});
+    return this.httpClient.get('http://localhost:8081/api/certificates/getCertificateStatus/' + certificateEmail, {responseType: 'text'});
   }
 
 }
