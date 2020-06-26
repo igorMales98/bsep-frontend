@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {KeyStoreData} from '../../model/keyStoreData';
 import {CertificateSubject} from '../../model/certificateSubject';
-import {CertificateStatus} from '../../model/certificateStatus';
 
 
 @Injectable({
@@ -29,7 +27,7 @@ export class LoadCertificatesService {
   }
 
   getCertificateStatus(certificateEmail: string){
-    return this.httpClient.get('http://localhost:8081/api/certificates/' + certificateEmail, {responseType: 'text'});
+    return this.httpClient.get('http://localhost:8081/api/certificates/getCertificateStatus/' + certificateEmail, {responseType: 'text'});
   }
 
 }

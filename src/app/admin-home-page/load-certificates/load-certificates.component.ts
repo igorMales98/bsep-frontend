@@ -114,10 +114,10 @@ export class LoadCertificatesComponent implements OnInit {
         this.correctPassword = password1;
         this.correctAlias = alias1;
 
-        
+
         this.loadCertificatesService.getCertificateStatus(this.emailSubject).subscribe(data => {
           this.certificateStatus = data;
-          console.log(this.certificateStatus);          
+          console.log(this.certificateStatus);
         });
 
       },
