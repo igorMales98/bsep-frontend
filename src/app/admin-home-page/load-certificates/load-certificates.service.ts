@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {KeyStoreData} from '../../model/keyStoreData';
 import {CertificateSubject} from '../../model/certificateSubject';
-import {CertificateStatus} from '../../model/certificateStatus';
 
 
 @Injectable({
